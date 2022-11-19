@@ -171,9 +171,15 @@ module mint_nft::mintone {
     public fun test_mint_normal(origin_account: &signer,mint_account: &signer,aptos_framework: &signer,recv_account: &signer) acquires NftInfo {
         test_setup(origin_account,mint_account,aptos_framework);
         create_account_for_test(signer::address_of(recv_account));
+        let collection_name = string::utf8(b"musebot.ai");
+        let token_name = string::utf8(b"token #1");
         mint_nft(recv_account,string::utf8(b"https://stacktrace.top/imgs/1.json"));
+        let num: u64 = token::balance_of(signer::address_of(recv_account),token::create_token_id_raw(signer::address_of(mint_account),collection_name,token_name,0));
+        aptos_std::debug::print<u64>(&num);
+        assert!(num == 1,1);
         let nftinfo = borrow_global_mut<NftInfo>(@mint_nft);
         assert!(nftinfo.used == 1,1);
+        
         aptos_std::debug::print<NftInfo>(nftinfo);
     }
 }
