@@ -281,8 +281,8 @@ module mint_nft::minting {
             0,
             token_uri,
             resource_account_address,
-            1,
-            0,
+            100,
+            5,
             // we don't allow any mutation to the token
             token::create_token_mutability_config(
                 &vector<bool>[ false, false, false, false, false ]

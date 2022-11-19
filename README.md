@@ -10,3 +10,6 @@ aptos move create-resource-account-and-publish-package --seed [] --address-name 
 
 ## userconstract
 help user to create NFTs and allows another users to mint.
+
+## mint_one
+help user mint one NFT.
