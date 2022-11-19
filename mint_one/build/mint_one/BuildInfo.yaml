@@ -1,0 +1,30 @@
+---
+compiled_package_info:
+  package_name: mint_one
+  address_alias_instantiation:
+    Extensions: "0000000000000000000000000000000000000000000000000000000000000001"
+    aptos_framework: "0000000000000000000000000000000000000000000000000000000000000001"
+    aptos_std: "0000000000000000000000000000000000000000000000000000000000000001"
+    aptos_token: "0000000000000000000000000000000000000000000000000000000000000003"
+    core_resources: 000000000000000000000000000000000000000000000000000000000a550c18
+    mint_nft: b00b2aef1ffae7256e4fdc345903a6102e7107d9b1ed96a451ad6c110347ce78
+    source_addr: 0a6f65c5389cb25206b0778b0411728663f1533da8a51f36d5b14db16b18dbc4
+    std: "0000000000000000000000000000000000000000000000000000000000000001"
+    vm_reserved: "0000000000000000000000000000000000000000000000000000000000000000"
+  source_digest: B9DFD0211F6D849ED2319322FFB1C1DE16F2DEE46D2B77505A9662F1B460A928
+  build_flags:
+    dev_mode: true
+    test_mode: true
+    generate_docs: false
+    generate_abis: false
+    install_dir: ~
+    force_recompilation: false
+    additional_named_addresses: {}
+    architecture: ~
+    fetch_deps_only: false
+    skip_fetch_latest_git_deps: false
+dependencies:
+  - AptosFramework
+  - AptosStdlib
+  - AptosToken
+  - MoveStdlib
