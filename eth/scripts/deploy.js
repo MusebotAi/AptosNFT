@@ -10,13 +10,13 @@ async function main() {
 
   const [owner] = await ethers.getSigners();
 
-  const MintOne = await hre.ethers.getContractFactory("MusebotAi");
+  const MintOne = await hre.ethers.getContractFactory("MuseMint");
   const mintOne = await MintOne.deploy(await owner.getAddress());
 
   await mintOne.deployed();
 
   console.log(
-    `mintOne deployed to ${mintOne.address}`
+    `MuseMint deployed to ${mintOne.address}`
   );
 }
 

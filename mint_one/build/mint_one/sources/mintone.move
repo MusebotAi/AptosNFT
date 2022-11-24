@@ -79,7 +79,7 @@ module mint_nft::mintone {
         nftinfo.token_pre = token_pre;
     }
 
-    public entry fun mint_nft(receiver: &signer,token_uri: String) acquires NftInfo {
+    public entry fun mint_nft(receiver: &signer,token_name: String, token_uri: String) acquires NftInfo {
 
         let receiver_addr = signer::address_of(receiver);
 
@@ -87,9 +87,9 @@ module mint_nft::mintone {
         let nftinfo = borrow_global_mut<NftInfo>(@mint_nft);
         
         // create nft
-        let str_used = get_str_from_number(nftinfo.used+1);
-        let token_name = nftinfo.token_pre;
-        string::append(&mut token_name,str_used);
+        // let str_used = get_str_from_number(nftinfo.used+1);
+        // let token_name = nftinfo.token_pre;
+        // string::append(&mut token_name,str_used);
         let resource_signer = account::create_signer_with_capability(&nftinfo.signer_cap);
         let resource_account_address = signer::address_of(&resource_signer);
         let token_data_id = token::create_tokendata(
@@ -141,20 +141,20 @@ module mint_nft::mintone {
     }
 
     #[test_only]
-    public fun test_setup(origin_account: &signer,mint_account: &signer,aptos_framework: &signer) {
+    public fun test_setup(origin_account: &signer,mint_account: &signer) {
         // set up global time for testing purpose
-        timestamp::set_time_has_started_for_testing(aptos_framework);
+        // timestamp::set_time_has_started_for_testing(aptos_framework);
         create_account_for_test(signer::address_of(origin_account));
         // // create a resource account from the origin account, mocking the module publishing process
         resource_account::create_resource_account(origin_account, vector::empty<u8>(), vector::empty<u8>());
         init_module(mint_account);
-        coin::register<AptosCoin>(origin_account);
+        // coin::register<AptosCoin>(origin_account);
     }
 
 
     #[test(origin_account=@0x0a6f65c5389cb25206b0778b0411728663f1533da8a51f36d5b14db16b18dbc4, mint_account=@0xb00b2aef1ffae7256e4fdc345903a6102e7107d9b1ed96a451ad6c110347ce78, aptos_framework = @aptos_framework)]
-    public fun test_modify_module(origin_account: &signer,mint_account: &signer,aptos_framework: &signer) acquires NftInfo {
-        test_setup(origin_account,mint_account,aptos_framework);
+    public fun test_modify_module(origin_account: &signer,mint_account: &signer) acquires NftInfo {
+        test_setup(origin_account,mint_account);
         let collection_name = string::utf8(b"test_collection");
         let token_pre = string::utf8(b"ttt");
         modify_module_by_owner(origin_account,collection_name,token_pre);
@@ -165,12 +165,12 @@ module mint_nft::mintone {
     }
 
     #[test(origin_account=@0x0a6f65c5389cb25206b0778b0411728663f1533da8a51f36d5b14db16b18dbc4, mint_account=@0xb00b2aef1ffae7256e4fdc345903a6102e7107d9b1ed96a451ad6c110347ce78, aptos_framework = @aptos_framework, recv_account=@0x3443345f)]
-    public fun test_mint_normal(origin_account: &signer,mint_account: &signer,aptos_framework: &signer,recv_account: &signer) acquires NftInfo {
-        test_setup(origin_account,mint_account,aptos_framework);
+    public fun test_mint_normal(origin_account: &signer,mint_account: &signer,recv_account: &signer) acquires NftInfo {
+        test_setup(origin_account,mint_account);
         create_account_for_test(signer::address_of(recv_account));
         let collection_name = string::utf8(b"musebot.ai");
         let token_name = string::utf8(b"token #1");
-        mint_nft(recv_account,string::utf8(b"https://stacktrace.top/imgs/1.json"));
+        mint_nft(recv_account,token_name, string::utf8(b"https://stacktrace.top/imgs/1.json"));
         let num: u64 = token::balance_of(signer::address_of(recv_account),token::create_token_id_raw(signer::address_of(mint_account),collection_name,token_name,0));
         aptos_std::debug::print<u64>(&num);
         assert!(num == 1,1);

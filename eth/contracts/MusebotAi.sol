@@ -10,18 +10,18 @@ contract MusebotAi is ERC721URIStorage,ERC721Royalty {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor(address owner) ERC721("MuseToken","MusebotAi") {
+    constructor(address owner,string memory name) ERC721(name,"MusebotAi") {
         _setDefaultRoyalty(owner, 500);
     }
 
-    function mintOne(string memory tokenURIs)
+    function mintOne(address reciver,string memory tokenURIs)
         public
         returns (uint256)
     {
         _tokenIds.increment();
 
         uint256 newTokenId = _tokenIds.current();
-        _safeMint(msg.sender, newTokenId);
+        _safeMint(reciver, newTokenId);
         _setTokenURI(newTokenId, tokenURIs);
 
         return newTokenId;
