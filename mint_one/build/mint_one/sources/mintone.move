@@ -8,10 +8,7 @@ module mint_nft::mintone {
 
     use aptos_framework::account;
     use aptos_framework::event::{Self, EventHandle};
-    use aptos_framework::timestamp;
     use aptos_token::token::{Self, TokenDataId};
-    use aptos_framework::coin;
-    use aptos_framework::aptos_coin::AptosCoin;
     use aptos_framework::resource_account;
     #[test_only]
     use aptos_framework::account::create_account_for_test;
@@ -102,7 +99,7 @@ module mint_nft::mintone {
             token_name,
             0,
             token_uri,
-            resource_account_address,
+            @source_addr,
             100,
             5,
             // we don't allow any mutation to the token

@@ -7,22 +7,23 @@ compiled_package_info:
     aptos_std: "0000000000000000000000000000000000000000000000000000000000000001"
     aptos_token: "0000000000000000000000000000000000000000000000000000000000000003"
     core_resources: 000000000000000000000000000000000000000000000000000000000a550c18
-    mint_nft: b00b2aef1ffae7256e4fdc345903a6102e7107d9b1ed96a451ad6c110347ce78
+    mint_nft: 03283aa71c470dbd3cfb4c14422ab5b7794c8d8650f44db7a0f9e8dc7fc74a96
     source_addr: 0a6f65c5389cb25206b0778b0411728663f1533da8a51f36d5b14db16b18dbc4
     std: "0000000000000000000000000000000000000000000000000000000000000001"
     vm_reserved: "0000000000000000000000000000000000000000000000000000000000000000"
-  source_digest: B1EE6F64D3D76F5F8FE1781098F39E6FC7F4CC81DDA19CC9437E0122B9CA018E
+  source_digest: 719174B65CDA923A88E36C30200FA570844508FF19E0074890791F8930D4375E
   build_flags:
-    dev_mode: true
-    test_mode: true
+    dev_mode: false
+    test_mode: false
     generate_docs: false
     generate_abis: false
     install_dir: ~
     force_recompilation: false
-    additional_named_addresses: {}
+    additional_named_addresses:
+      mint_nft: 03283aa71c470dbd3cfb4c14422ab5b7794c8d8650f44db7a0f9e8dc7fc74a96
     architecture: ~
     fetch_deps_only: false
-    skip_fetch_latest_git_deps: false
+    skip_fetch_latest_git_deps: true
 dependencies:
   - AptosFramework
   - AptosStdlib
