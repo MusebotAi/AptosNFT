@@ -8,10 +8,10 @@ const hre = require("hardhat");
 
 async function main() {
 
-  const [owner] = await ethers.getSigners();
+  // const [owner] = await ethers.getSigners();
 
-  const MintOne = await hre.ethers.getContractFactory("MuseMint");
-  const mintOne = await MintOne.deploy(await owner.getAddress());
+  const MintOne = await hre.ethers.getContractFactory("MusebotAi");
+  const mintOne = await MintOne.deploy();
 
   await mintOne.deployed();
 

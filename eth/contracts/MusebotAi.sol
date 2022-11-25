@@ -1,43 +1,29 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Royalty.sol";
 
-contract MusebotAi is ERC721URIStorage,ERC721Royalty {
+contract MusebotAi is ERC1155 {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor(address owner,string memory name) ERC721(name,"MusebotAi") {
-        _setDefaultRoyalty(owner, 500);
-    }
+    // storage for token's uri
+    mapping(uint256 => string) private _Uris;
 
-    function mintOne(address reciver,string memory tokenURIs)
+    constructor() ERC1155("") {}
+
+    function mintOne(string memory tokenURIs)
         public
-        returns (uint256)
     {
         _tokenIds.increment();
 
         uint256 newTokenId = _tokenIds.current();
-        _safeMint(reciver, newTokenId);
-        _setTokenURI(newTokenId, tokenURIs);
-
-        return newTokenId;
+        _mint(msg.sender, newTokenId, 1, "");
+        _Uris[newTokenId] = tokenURIs;
     }
 
-    function tokenURI(uint256 tokenId) public view virtual override(ERC721URIStorage,ERC721) returns (string memory) {
-        return ERC721URIStorage.tokenURI(tokenId);
+    function uri(uint256 id) public view virtual override returns (string memory) {
+        return _Uris[id];
     }
-
-    function _burn(uint256 tokenId) internal virtual override(ERC721URIStorage,ERC721Royalty) {
-        ERC721URIStorage._burn(tokenId);
-        _resetTokenRoyalty(tokenId);
-    }
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC721,ERC721Royalty) returns (bool) {
-        return super.supportsInterface(interfaceId);
-    }
-
 }
